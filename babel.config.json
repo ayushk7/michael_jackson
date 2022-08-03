@@ -1,0 +1,14 @@
+{
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "pragma": "MJ.createElement", // default pragma is React.createElement (only in classic runtime)
+          "pragmaFrag": "MJ.Fragment", // default is React.Fragment (only in classic runtime)
+          "throwIfNamespace": false, // defaults to true
+          "runtime": "classic", // defaults to classic
+          // "importSource": "../michael-jackson" // defaults to react
+        }
+      ]
+    ]
+  }

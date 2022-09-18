@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+const fs = require('fs');
 var nodemon = require('gulp-nodemon');
 var browserSync = require('browser-sync').create();
 var babel = require("gulp-babel");
@@ -12,6 +13,16 @@ gulp.task('gulp_nodemon', function() {
 });
 
 const compileJSX = () => {
+  const dist_dir = './dist';
+  if (!fs.existsSync(dist_dir)) {
+    fs.mkdirSync(dist_dir);
+  }
+  if(!fs.existsSync(`${dist_dir}/index.html`)){
+    fs.copyFileSync('./michael-jackson/templates/index.html', `${dist_dir}/index.html`);
+  }
+  if(!fs.existsSync(`${dist_dir}/style.css`)){
+    fs.copyFileSync('./src/style.css', `${dist_dir}/style.css`);
+  }
   return gulp.src("src/**/*.jsx")
   .pipe(babel({
     presets: ["@babel/preset-react"]
@@ -20,7 +31,7 @@ const compileJSX = () => {
 }
 
 gulp.task("compile", function () {
-  gulp.watch(['./**/*.jsx']).on("change", compileJSX);
+  gulp.watch(['./**/*.jsx', './**/*.css', './gulpfile.js']).on("change", compileJSX);
 });
 
 gulp.task('sync', function() {
